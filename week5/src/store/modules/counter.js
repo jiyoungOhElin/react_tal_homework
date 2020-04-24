@@ -13,12 +13,19 @@ const ADD_COLOR_BOX = 'counter/ADD_COLOR_BOX';
 export const increment = createAction(INCREMENT);
 export const decrement = createAction(DECREMENT);
 export const changeColor = createAction(CHANGE_COLOR, color=>color);
-export const addColorBox = createAction(ADD_COLOR_BOX, color=>color);
+export const addColorBox = createAction(ADD_COLOR_BOX, list=>list);
 
 // 초기 상태값
 const initialState = {
     number: 0,
-    color:'#bfcd7e'
+    color:'#bfcd7e',
+    list:[
+        {   
+            id:0,
+            color:'#bfcd7e',
+            opacity:1
+        }
+    ]
 };
 
 // 리듀서
@@ -38,7 +45,8 @@ export default handleActions(
         }),
         [ADD_COLOR_BOX]: (state, action) => ({
             ...state,
-            color: action.payload
+            color: action.payload.color,
+            list: state.list.concat(action.payload)
         })
     },
     initialState
