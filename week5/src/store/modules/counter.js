@@ -52,8 +52,7 @@ export default handleActions(
             color: action.payload.color,
             list: state.list.concat(action.payload)
         }),
-        [ADJUST_OPACITY]: (state, action) => {
-          return {
+        [ADJUST_OPACITY]: (state, action) => ({
           ...state,
           color:action.payload.color,
           list: state.list.map( item =>{
@@ -63,15 +62,11 @@ export default handleActions(
                   {...item, opacity : result} 
                   : item 
                 })
-          }
-        },
-        [DELETE_BOX]: (state, action) => {
-          console.log(action.payload, );
-          return {
-            ...state,
-            list: state.list.filter(item=> action.payload !== item.id ? true : false )
-          };
-        }
+        }),
+        [DELETE_BOX]: (state, action) => ({
+          ...state,
+          list: state.list.filter(item=> action.payload !== item.id ? true : false )
+        })
     },
     initialState
 );
