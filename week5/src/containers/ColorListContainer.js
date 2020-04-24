@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ColorList from '../components/ColorList';
-import { addColorBox } from '../store/modules/counter';
+import { addColorBox, adjustOpacity, deleteBox } from '../store/modules/counter';
 
 class ColorListContainer extends Component {
   render() {
-    const { addColorBox, list } = this.props;
+    const { addColorBox, list, adjustOpacity, deleteBox } = this.props;
     return (
-      <ColorList onEnter={addColorBox} list={list}/>
+      <ColorList onEnter={addColorBox} list={list} onLeftClick={adjustOpacity} onRightClick={deleteBox}/>
     )
   }
 }
@@ -18,7 +18,9 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = {
-  addColorBox 
+  addColorBox,
+  adjustOpacity,
+  deleteBox
 }
 
 export default connect(

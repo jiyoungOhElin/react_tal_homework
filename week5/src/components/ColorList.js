@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import './ColorList.css';
 
-class Box extends Component {
+class Box extends Component { 
 	render(){
-		const { style } = this.props;
-		return(
-			<div className="Box" style={style}></div>
-		)
+		const { style, onLeftClick, onRightClick, id, color } = this.props;
+		return <div className="Box" style={style} onClick={(e)=>{e.preventDefault();onLeftClick({id,color})}}onContextMenu={(e)=>{e.preventDefault();onRightClick(id);}}></div>
 	}
 }
 
@@ -25,11 +23,12 @@ class ColorList extends Component {
 				}
 			);
 
+			e.target.value='';
 			this.id ++;
 		}
 	}
 	render() {
-		const { list } = this.props;
+		const { list, onLeftClick, onRightClick } = this.props;
 		return (
 			<div>
 				<form className="ColorList">
@@ -38,7 +37,7 @@ class ColorList extends Component {
 					<div className="BoxWrap">
 						{
 							list && list.map(item =>
-							{return <Box style={{backgroundColor:item.color}} key={item.id}/>})
+							{return <Box style={{backgroundColor:item.color, opacity: item.opacity}} key={item.id} id={item.id} onLeftClick={onLeftClick} color={item.color} onRightClick={onRightClick}/>})
 						}
 					</div>
 				</form>
